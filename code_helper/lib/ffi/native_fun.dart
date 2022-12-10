@@ -1,0 +1,11 @@
+import 'native_ffi.dart';
+import 'rust_ffi/rust_ffi.dart';
+
+class NativeFun {
+  static final _ffi = RustFfiImpl(NativeFFI.dyLib);
+
+  static Future<int> add(int left, int right) async {
+    int sum = await _ffi.add(left: left, right: right);
+    return sum;
+  }
+}
