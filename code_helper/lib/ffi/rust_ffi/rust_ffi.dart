@@ -14,6 +14,10 @@ abstract class RustFfi {
   Future<int> add({required int left, required int right, dynamic hint});
 
   FlutterRustBridgeTaskConstMeta get kAddConstMeta;
+
+  Future<int> selfAdd({required int num, dynamic hint});
+
+  FlutterRustBridgeTaskConstMeta get kSelfAddConstMeta;
 }
 
 class RustFfiImpl implements RustFfi {
@@ -41,6 +45,23 @@ class RustFfiImpl implements RustFfi {
       const FlutterRustBridgeTaskConstMeta(
         debugName: "add",
         argNames: ["left", "right"],
+      );
+
+  Future<int> selfAdd({required int num, dynamic hint}) {
+    var arg0 = api2wire_usize(num);
+    return _platform.executeNormal(FlutterRustBridgeTask(
+      callFfi: (port_) => _platform.inner.wire_self_add(port_, arg0),
+      parseSuccessData: _wire2api_usize,
+      constMeta: kSelfAddConstMeta,
+      argValues: [num],
+      hint: hint,
+    ));
+  }
+
+  FlutterRustBridgeTaskConstMeta get kSelfAddConstMeta =>
+      const FlutterRustBridgeTaskConstMeta(
+        debugName: "self_add",
+        argNames: ["num"],
       );
 
   void dispose() {
@@ -184,6 +205,22 @@ class RustFfiWire implements FlutterRustBridgeWireBase {
           ffi.Void Function(ffi.Int64, uintptr_t, uintptr_t)>>('wire_add');
   late final _wire_add =
       _wire_addPtr.asFunction<void Function(int, int, int)>();
+
+  void wire_self_add(
+    int port_,
+    int num,
+  ) {
+    return _wire_self_add(
+      port_,
+      num,
+    );
+  }
+
+  late final _wire_self_addPtr =
+      _lookup<ffi.NativeFunction<ffi.Void Function(ffi.Int64, uintptr_t)>>(
+          'wire_self_add');
+  late final _wire_self_add =
+      _wire_self_addPtr.asFunction<void Function(int, int)>();
 
   void free_WireSyncReturnStruct(
     WireSyncReturnStruct val,

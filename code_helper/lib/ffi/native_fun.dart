@@ -8,4 +8,9 @@ class NativeFun {
     int sum = await _ffi.add(left: left, right: right);
     return sum;
   }
+
+  static Future<int> selfAdd(int num) async {
+    int sum = await _ffi.selfAdd(num: num);
+    return sum;
+  }
 }

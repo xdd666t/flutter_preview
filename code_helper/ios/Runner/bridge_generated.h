@@ -25,11 +25,14 @@ intptr_t init_frb_dart_api_dl(void *obj);
 
 void wire_add(int64_t port_, uintptr_t left, uintptr_t right);
 
+void wire_self_add(int64_t port_, uintptr_t num);
+
 void free_WireSyncReturnStruct(struct WireSyncReturnStruct val);
 
 static int64_t dummy_method_to_enforce_bundling(void) {
     int64_t dummy_var = 0;
     dummy_var ^= ((int64_t) (void*) wire_add);
+    dummy_var ^= ((int64_t) (void*) wire_self_add);
     dummy_var ^= ((int64_t) (void*) free_WireSyncReturnStruct);
     dummy_var ^= ((int64_t) (void*) store_dart_post_cobject);
     dummy_var ^= ((int64_t) (void*) get_dart_object);

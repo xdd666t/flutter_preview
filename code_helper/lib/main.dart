@@ -26,7 +26,7 @@ class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
 
   void _incrementCounter() async {
-    _counter = await NativeFun.add(_counter, 2);
+    _counter = await NativeFun.selfAdd(_counter);
     setState(() {});
   }
 

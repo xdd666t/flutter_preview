@@ -39,6 +39,19 @@ fn wire_add_impl(
         },
     )
 }
+fn wire_self_add_impl(port_: MessagePort, num: impl Wire2Api<usize> + UnwindSafe) {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap(
+        WrapInfo {
+            debug_name: "self_add",
+            port: Some(port_),
+            mode: FfiCallMode::Normal,
+        },
+        move || {
+            let api_num = num.wire2api();
+            move |task_callback| Ok(self_add(api_num))
+        },
+    )
+}
 // Section: wrapper structs
 
 // Section: static checks
