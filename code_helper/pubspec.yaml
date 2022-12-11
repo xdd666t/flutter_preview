@@ -17,6 +17,14 @@ dependencies:
   # https://pub.dev/packages/flutter_rust_bridge
   flutter_rust_bridge: 1.51.0
   ffi: 2.0.1
+  # getx 状态管理框架 https://pub.flutter-io.cn/packages/get
+  get: 4.6.5
+  # 弹窗控件 https://github.com/CNAD666/flutter_smart_dialog
+  flutter_smart_dialog: 4.7.1
+  # 设置桌面端: https://github.com/bitsdojo/bitsdojo_window
+  bitsdojo_window: ^0.1.5
+  # https://pub.flutter-io.cn/packages/logger
+  logger: 1.1.0
 
 dev_dependencies:
   flutter_test:
