@@ -1,5 +1,7 @@
 class CodeScanState {
+  late int count;
+
   CodeScanState() {
-    ///Initialize variables
+    count = 0;
   }
 }

@@ -11,6 +11,20 @@ class CodeScanPage extends StatelessWidget {
     final logic = Get.put(CodeScanLogic());
     final state = Get.find<CodeScanLogic>().state;
 
-    return const Center(child: Text("代码扫描"));
+    return Scaffold(
+      body: Center(
+        child: GetBuilder<CodeScanLogic>(builder: (logic) {
+          return Text(
+            'Count:  ${state.count}',
+            style: Theme.of(context).textTheme.headline4,
+          );
+        }),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () => logic.incrementCounter(),
+        tooltip: 'Increment',
+        child: const Icon(Icons.add),
+      ),
+    );
   }
 }

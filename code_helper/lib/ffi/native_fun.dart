@@ -2,6 +2,8 @@ import 'native_ffi.dart';
 import 'rust_ffi/rust_ffi.dart';
 
 class NativeFun {
+  NativeFun._();
+
   static final _ffi = RustFfiImpl(NativeFFI.dyLib);
 
   static Future<int> add(int left, int right) async {
