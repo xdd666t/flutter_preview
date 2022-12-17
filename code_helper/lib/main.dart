@@ -13,11 +13,11 @@ void main() {
   // main()方法并不是在Flutter给physicalSize赋值后才运行的，
   // 这就导致部分机型性能比较好，还没赋值屏幕大小就可能启动渲染界面了。
   // 如果size为有数值，监听测量回调，在回调中runApp
-  appReady() {
+  appReady() async{
     if (!window.physicalSize.isEmpty) {
       window.onMetricsChanged = null;
+      await initWindow();
       runApp(const MyApp());
-      initWindow();
     }
   }
 

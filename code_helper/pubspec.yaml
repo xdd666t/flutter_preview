@@ -21,8 +21,8 @@ dependencies:
   get: 4.6.5
   # 弹窗控件 https://github.com/CNAD666/flutter_smart_dialog
   flutter_smart_dialog: 4.7.1
-  # 设置桌面端: https://github.com/bitsdojo/bitsdojo_window
-  bitsdojo_window: ^0.1.5
+  # 设置桌面端: https://pub.dev/packages/window_manager
+  window_manager: 0.2.8
   # https://pub.flutter-io.cn/packages/logger
   logger: 1.1.0
 
@@ -44,9 +44,8 @@ flutter:
   uses-material-design: true
 
   # To add assets to your application, add an assets section, like this:
-  # assets:
-  #   - images/a_dot_burr.jpeg
-  #   - images/a_dot_ham.jpeg
+  assets:
+    - assets/images/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

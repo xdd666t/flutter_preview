@@ -25,27 +25,21 @@ class _SideNavigation extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return _buildBg(children: [
-      // 拖拽区域
-      SizedBox(height: 20, width: double.maxFinite, child: MoveWindow()),
+      // 头像
+      _buildHeadImage(),
 
-      Expanded(
-        child: Column(children: [
-          // 头像
-          _buildHeadImage(),
+      // 侧边栏选项
+      _buildItems(),
 
-          // 侧边栏选项
-          _buildItems(),
-
-          // 缩放
-          _buildScale(),
-        ]),
-      ),
+      // 缩放
+      _buildScale(),
     ]);
   }
 
   Widget _buildBg({required List<Widget> children}) {
     return Container(
       width: 120,
+      padding: const EdgeInsets.only(top: 30),
       color: const Color(0xFFF6F6F6),
       child: Column(children: children),
     );
@@ -140,7 +134,7 @@ class _SideNavigation extends StatelessWidget {
         width: 75,
         height: 75,
         padding: const EdgeInsets.all(8.0),
-        margin: const EdgeInsets.only(bottom: 30),
+        margin: const EdgeInsets.only(top: 20, bottom: 30),
         decoration: BoxDecoration(
           shape: BoxShape.circle,
           boxShadow: [
@@ -151,9 +145,8 @@ class _SideNavigation extends StatelessWidget {
             )
           ],
           image: const DecorationImage(
-            image: NetworkImage(
-              "https://raw.githubusercontent.com/xdd666t/MyData/master/pic/flutter/blog/20220103124847.jpg",
-            ),
+            // image: NetworkImage(ImageConfig.head),
+            image: AssetImage(Assets.imagesHeadImage),
             fit: BoxFit.cover,
           ),
         ),
