@@ -1,5 +1,4 @@
 import 'package:code_helper/app/config/image_config.dart';
-import 'package:code_helper/generated/assets.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -34,7 +33,7 @@ class MainPage extends StatelessWidget {
         // Expanded占满剩下的空间
         Expanded(
           child: Container(
-            padding: const EdgeInsets.only(top: 30),
+            padding: const EdgeInsets.only(top: 20),
             child: PageView.builder(
               physics: const NeverScrollableScrollPhysics(),
               itemCount: state.pageList.length,

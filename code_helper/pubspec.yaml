@@ -25,6 +25,10 @@ dependencies:
   window_manager: 0.2.8
   # https://pub.flutter-io.cn/packages/logger
   logger: 1.1.0
+  # 选择文件: https://pub.dev/packages/file_picker
+  file_picker: 5.2.4
+  # 拖拽文件获取路径:https://pub.dev/packages/desktop_drop
+  desktop_drop: 0.4.0
 
 dev_dependencies:
   flutter_test:
@@ -72,3 +76,19 @@ flutter:
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
+
+flutter_assets_generator:
+  # Optional. Sets the directory of generated localization files. Provided value should be a valid path on lib dir. Default: generated
+  output_dir: app/config
+  # Optional. Sets whether utomatic monitoring of file changes. Default: true
+  auto_detection: true
+  # Optional. Sets file name conversion rules. Default: true
+  named_with_parent: true
+  # Optional. Sets the name for the generated localization file. Default: assets
+  output_filename: image_config
+  # Optional. Sets the name for the generated localization class. Default: Assets
+  class_name: ImageConfig
+  # Optional. Sets the filename split pattern for filename split. Default: [-_]
+  filename_split_pattern: "[-_]"
+  # Optional. Configuring ignore paths. Default: [],e.g: ["assets/fonts", "assets/images/dark", ...]
+  path_ignore: [ ]

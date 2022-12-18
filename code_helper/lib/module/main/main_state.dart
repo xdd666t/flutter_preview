@@ -40,11 +40,11 @@ class MainState {
     //item栏目
     sideItems = [
       BtnInfo(
-        title: "功能",
+        title: "代码扫描",
         icon: const Icon(Icons.bubble_chart),
       ),
       BtnInfo(
-        title: "范例",
+        title: "实验室",
         icon: const Icon(Icons.opacity),
       ),
       BtnInfo(

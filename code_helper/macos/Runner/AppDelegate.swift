@@ -5,6 +5,6 @@ import FlutterMacOS
 class AppDelegate: FlutterAppDelegate {
   override func applicationShouldTerminateAfterLastWindowClosed(_ sender: NSApplication) -> Bool {
     dummy_method_to_enforce_bundling()
-    return true
+    return false
   }
 }

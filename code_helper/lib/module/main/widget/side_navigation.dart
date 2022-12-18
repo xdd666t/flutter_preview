@@ -39,7 +39,7 @@ class _SideNavigation extends StatelessWidget {
   Widget _buildBg({required List<Widget> children}) {
     return Container(
       width: 120,
-      padding: const EdgeInsets.only(top: 30),
+      padding: const EdgeInsets.only(top: 20),
       color: const Color(0xFFF6F6F6),
       child: Column(children: children),
     );
@@ -73,11 +73,12 @@ class _SideNavigation extends StatelessWidget {
                     Expanded(
                       child: Container(
                         width: double.maxFinite,
+                        padding: const EdgeInsets.only(left: 12),
                         alignment: Alignment.center,
                         color: data.selectedIndex == index
                             ? Colors.white
                             : const Color(0xFFF6F6F6),
-                        child: Row(mainAxisSize: MainAxisSize.min, children: [
+                        child: Row(children: [
                           Icon(
                             item.icon?.icon ?? Icons.abc,
                             color: data.selectedIndex == index
@@ -145,8 +146,7 @@ class _SideNavigation extends StatelessWidget {
             )
           ],
           image: const DecorationImage(
-            // image: NetworkImage(ImageConfig.head),
-            image: AssetImage(Assets.imagesHeadImage),
+            image: AssetImage(ImageConfig.imagesHead),
             fit: BoxFit.cover,
           ),
         ),
