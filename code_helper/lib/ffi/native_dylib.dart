@@ -1,8 +1,7 @@
-import 'dart:ffi';
-import 'dart:io';
+part of 'native_fun.dart';
 
-class NativeFFI {
-  NativeFFI._();
+class _NativeDyLib {
+  _NativeDyLib._();
 
   static DynamicLibrary? _dyLib;
 
