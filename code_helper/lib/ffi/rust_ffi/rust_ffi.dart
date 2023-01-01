@@ -11,14 +11,6 @@ import 'package:meta/meta.dart';
 import 'dart:ffi' as ffi;
 
 abstract class RustFfi {
-  Future<int> add({required int left, required int right, dynamic hint});
-
-  FlutterRustBridgeTaskConstMeta get kAddConstMeta;
-
-  Future<int> selfAdd({required int num, dynamic hint});
-
-  FlutterRustBridgeTaskConstMeta get kSelfAddConstMeta;
-
   Stream<ParseEntity> parseCode({required String path, dynamic hint});
 
   FlutterRustBridgeTaskConstMeta get kParseCodeConstMeta;
@@ -43,41 +35,6 @@ class RustFfiImpl implements RustFfi {
   factory RustFfiImpl.wasm(FutureOr<WasmModule> module) =>
       RustFfiImpl(module as ExternalLibrary);
   RustFfiImpl.raw(this._platform);
-  Future<int> add({required int left, required int right, dynamic hint}) {
-    var arg0 = api2wire_usize(left);
-    var arg1 = api2wire_usize(right);
-    return _platform.executeNormal(FlutterRustBridgeTask(
-      callFfi: (port_) => _platform.inner.wire_add(port_, arg0, arg1),
-      parseSuccessData: _wire2api_usize,
-      constMeta: kAddConstMeta,
-      argValues: [left, right],
-      hint: hint,
-    ));
-  }
-
-  FlutterRustBridgeTaskConstMeta get kAddConstMeta =>
-      const FlutterRustBridgeTaskConstMeta(
-        debugName: "add",
-        argNames: ["left", "right"],
-      );
-
-  Future<int> selfAdd({required int num, dynamic hint}) {
-    var arg0 = api2wire_usize(num);
-    return _platform.executeNormal(FlutterRustBridgeTask(
-      callFfi: (port_) => _platform.inner.wire_self_add(port_, arg0),
-      parseSuccessData: _wire2api_usize,
-      constMeta: kSelfAddConstMeta,
-      argValues: [num],
-      hint: hint,
-    ));
-  }
-
-  FlutterRustBridgeTaskConstMeta get kSelfAddConstMeta =>
-      const FlutterRustBridgeTaskConstMeta(
-        debugName: "self_add",
-        argNames: ["num"],
-      );
-
   Stream<ParseEntity> parseCode({required String path, dynamic hint}) {
     var arg0 = _platform.api2wire_String(path);
     return _platform.executeStream(FlutterRustBridgeTask(
@@ -122,10 +79,6 @@ class RustFfiImpl implements RustFfi {
   Uint8List _wire2api_uint_8_list(dynamic raw) {
     return raw as Uint8List;
   }
-
-  int _wire2api_usize(dynamic raw) {
-    return castInt(raw);
-  }
 }
 
 // Section: api2wire
@@ -135,10 +88,6 @@ int api2wire_u8(int raw) {
   return raw;
 }
 
-@protected
-int api2wire_usize(int raw) {
-  return raw;
-}
 // Section: finalizer
 
 class RustFfiPlatform extends FlutterRustBridgeBase<RustFfiWire> {
@@ -156,7 +105,6 @@ class RustFfiPlatform extends FlutterRustBridgeBase<RustFfiWire> {
     ans.ref.ptr.asTypedList(raw.length).setAll(0, raw);
     return ans;
   }
-
 // Section: finalizer
 
 // Section: api_fill_to_wire
@@ -198,40 +146,6 @@ class RustFfiWire implements FlutterRustBridgeWireBase {
           'store_dart_post_cobject');
   late final _store_dart_post_cobject = _store_dart_post_cobjectPtr
       .asFunction<void Function(DartPostCObjectFnType)>();
-
-  void wire_add(
-    int port_,
-    int left,
-    int right,
-  ) {
-    return _wire_add(
-      port_,
-      left,
-      right,
-    );
-  }
-
-  late final _wire_addPtr = _lookup<
-      ffi.NativeFunction<
-          ffi.Void Function(ffi.Int64, uintptr_t, uintptr_t)>>('wire_add');
-  late final _wire_add =
-      _wire_addPtr.asFunction<void Function(int, int, int)>();
-
-  void wire_self_add(
-    int port_,
-    int num,
-  ) {
-    return _wire_self_add(
-      port_,
-      num,
-    );
-  }
-
-  late final _wire_self_addPtr =
-      _lookup<ffi.NativeFunction<ffi.Void Function(ffi.Int64, uintptr_t)>>(
-          'wire_self_add');
-  late final _wire_self_add =
-      _wire_self_addPtr.asFunction<void Function(int, int)>();
 
   void wire_parse_code(
     int port_,
@@ -290,4 +204,3 @@ class wire_uint_8_list extends ffi.Struct {
 typedef DartPostCObjectFnType = ffi.Pointer<
     ffi.NativeFunction<ffi.Bool Function(DartPort, ffi.Pointer<ffi.Void>)>>;
 typedef DartPort = ffi.Int64;
-typedef uintptr_t = ffi.UnsignedLong;
