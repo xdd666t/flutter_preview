@@ -11,11 +11,6 @@ import 'code_scan_state.dart';
 class CodeScanLogic extends GetxController {
   final CodeScanState state = CodeScanState();
 
-  void incrementCounter() async {
-    state.count = await NativeFun.selfAdd(state.count);
-    update();
-  }
-
   void onSelect() async {
     final dir = await FilePicker.platform.getDirectoryPath();
     _handleFile(dir);

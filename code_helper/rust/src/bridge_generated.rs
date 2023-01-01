@@ -23,37 +23,6 @@ use crate::code_scan::parse_code::ParseEntity;
 
 // Section: wire functions
 
-fn wire_add_impl(
-    port_: MessagePort,
-    left: impl Wire2Api<usize> + UnwindSafe,
-    right: impl Wire2Api<usize> + UnwindSafe,
-) {
-    FLUTTER_RUST_BRIDGE_HANDLER.wrap(
-        WrapInfo {
-            debug_name: "add",
-            port: Some(port_),
-            mode: FfiCallMode::Normal,
-        },
-        move || {
-            let api_left = left.wire2api();
-            let api_right = right.wire2api();
-            move |task_callback| Ok(add(api_left, api_right))
-        },
-    )
-}
-fn wire_self_add_impl(port_: MessagePort, num: impl Wire2Api<usize> + UnwindSafe) {
-    FLUTTER_RUST_BRIDGE_HANDLER.wrap(
-        WrapInfo {
-            debug_name: "self_add",
-            port: Some(port_),
-            mode: FfiCallMode::Normal,
-        },
-        move || {
-            let api_num = num.wire2api();
-            move |task_callback| Ok(self_add(api_num))
-        },
-    )
-}
 fn wire_parse_code_impl(port_: MessagePort, path: impl Wire2Api<String> + UnwindSafe) {
     FLUTTER_RUST_BRIDGE_HANDLER.wrap(
         WrapInfo {
@@ -96,11 +65,6 @@ impl Wire2Api<u8> for u8 {
     }
 }
 
-impl Wire2Api<usize> for usize {
-    fn wire2api(self) -> usize {
-        self
-    }
-}
 // Section: impl IntoDart
 
 impl support::IntoDart for ParseEntity {

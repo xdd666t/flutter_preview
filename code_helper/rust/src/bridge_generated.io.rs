@@ -2,16 +2,6 @@ use super::*;
 // Section: wire functions
 
 #[no_mangle]
-pub extern "C" fn wire_add(port_: i64, left: usize, right: usize) {
-    wire_add_impl(port_, left, right)
-}
-
-#[no_mangle]
-pub extern "C" fn wire_self_add(port_: i64, num: usize) {
-    wire_self_add_impl(port_, num)
-}
-
-#[no_mangle]
 pub extern "C" fn wire_parse_code(port_: i64, path: *mut wire_uint_8_list) {
     wire_parse_code_impl(port_, path)
 }
@@ -46,7 +36,6 @@ impl Wire2Api<Vec<u8>> for *mut wire_uint_8_list {
         }
     }
 }
-
 // Section: wire structs
 
 #[repr(C)]
