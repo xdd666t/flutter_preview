@@ -3,7 +3,7 @@ import 'dart:io';
 
 import 'rust_ffi/rust_ffi.dart';
 
-part 'native_dylib.dart';
+part 'helper/native_dylib.dart';
 
 class NativeFun {
   NativeFun._();

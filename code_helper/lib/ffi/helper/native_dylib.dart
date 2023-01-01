@@ -1,4 +1,4 @@
-part of 'native_fun.dart';
+part of '../native_fun.dart';
 
 class _NativeDyLib {
   _NativeDyLib._();
