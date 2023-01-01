@@ -15,4 +15,8 @@ class NativeFun {
     int sum = await _ffi.selfAdd(num: num);
     return sum;
   }
+
+  static Stream<ParseEntity> parseCode(String path) {
+    return _ffi.parseCode(path: path);
+  }
 }

@@ -1,6 +1,9 @@
+import 'dart:math';
+
 import 'package:code_helper/ffi/native_fun.dart';
 import 'package:desktop_drop/desktop_drop.dart';
 import 'package:file_picker/file_picker.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 
 import 'code_scan_state.dart';
@@ -29,5 +32,10 @@ class CodeScanLogic extends GetxController {
     }
     state.path = path;
     update();
+
+    var sink = NativeFun.parseCode(path);
+    sink.listen((event) {
+      debugPrint('---------${event.status} ----- ${event.msg}');
+    });
   }
 }

@@ -18,6 +18,20 @@ abstract class RustFfi {
   Future<int> selfAdd({required int num, dynamic hint});
 
   FlutterRustBridgeTaskConstMeta get kSelfAddConstMeta;
+
+  Stream<ParseEntity> parseCode({required String path, dynamic hint});
+
+  FlutterRustBridgeTaskConstMeta get kParseCodeConstMeta;
+}
+
+class ParseEntity {
+  final int status;
+  final String msg;
+
+  ParseEntity({
+    required this.status,
+    required this.msg,
+  });
 }
 
 class RustFfiImpl implements RustFfi {
@@ -64,7 +78,50 @@ class RustFfiImpl implements RustFfi {
         argNames: ["num"],
       );
 
+  Stream<ParseEntity> parseCode({required String path, dynamic hint}) {
+    var arg0 = _platform.api2wire_String(path);
+    return _platform.executeStream(FlutterRustBridgeTask(
+      callFfi: (port_) => _platform.inner.wire_parse_code(port_, arg0),
+      parseSuccessData: _wire2api_parse_entity,
+      constMeta: kParseCodeConstMeta,
+      argValues: [path],
+      hint: hint,
+    ));
+  }
+
+  FlutterRustBridgeTaskConstMeta get kParseCodeConstMeta =>
+      const FlutterRustBridgeTaskConstMeta(
+        debugName: "parse_code",
+        argNames: ["path"],
+      );
+
 // Section: wire2api
+
+  String _wire2api_String(dynamic raw) {
+    return raw as String;
+  }
+
+  int _wire2api_i32(dynamic raw) {
+    return raw as int;
+  }
+
+  ParseEntity _wire2api_parse_entity(dynamic raw) {
+    final arr = raw as List<dynamic>;
+    if (arr.length != 2)
+      throw Exception('unexpected arr length: expect 2 but see ${arr.length}');
+    return ParseEntity(
+      status: _wire2api_i32(arr[0]),
+      msg: _wire2api_String(arr[1]),
+    );
+  }
+
+  int _wire2api_u8(dynamic raw) {
+    return raw as int;
+  }
+
+  Uint8List _wire2api_uint_8_list(dynamic raw) {
+    return raw as Uint8List;
+  }
 
   int _wire2api_usize(dynamic raw) {
     return castInt(raw);
@@ -72,6 +129,11 @@ class RustFfiImpl implements RustFfi {
 }
 
 // Section: api2wire
+
+@protected
+int api2wire_u8(int raw) {
+  return raw;
+}
 
 @protected
 int api2wire_usize(int raw) {
@@ -82,6 +144,18 @@ int api2wire_usize(int raw) {
 class RustFfiPlatform extends FlutterRustBridgeBase<RustFfiWire> {
   RustFfiPlatform(ffi.DynamicLibrary dylib) : super(RustFfiWire(dylib));
 // Section: api2wire
+
+  @protected
+  ffi.Pointer<wire_uint_8_list> api2wire_String(String raw) {
+    return api2wire_uint_8_list(utf8.encoder.convert(raw));
+  }
+
+  @protected
+  ffi.Pointer<wire_uint_8_list> api2wire_uint_8_list(Uint8List raw) {
+    final ans = inner.new_uint_8_list_0(raw.length);
+    ans.ref.ptr.asTypedList(raw.length).setAll(0, raw);
+    return ans;
+  }
 
 // Section: finalizer
 
@@ -159,6 +233,38 @@ class RustFfiWire implements FlutterRustBridgeWireBase {
   late final _wire_self_add =
       _wire_self_addPtr.asFunction<void Function(int, int)>();
 
+  void wire_parse_code(
+    int port_,
+    ffi.Pointer<wire_uint_8_list> path,
+  ) {
+    return _wire_parse_code(
+      port_,
+      path,
+    );
+  }
+
+  late final _wire_parse_codePtr = _lookup<
+      ffi.NativeFunction<
+          ffi.Void Function(
+              ffi.Int64, ffi.Pointer<wire_uint_8_list>)>>('wire_parse_code');
+  late final _wire_parse_code = _wire_parse_codePtr
+      .asFunction<void Function(int, ffi.Pointer<wire_uint_8_list>)>();
+
+  ffi.Pointer<wire_uint_8_list> new_uint_8_list_0(
+    int len,
+  ) {
+    return _new_uint_8_list_0(
+      len,
+    );
+  }
+
+  late final _new_uint_8_list_0Ptr = _lookup<
+      ffi.NativeFunction<
+          ffi.Pointer<wire_uint_8_list> Function(
+              ffi.Int32)>>('new_uint_8_list_0');
+  late final _new_uint_8_list_0 = _new_uint_8_list_0Ptr
+      .asFunction<ffi.Pointer<wire_uint_8_list> Function(int)>();
+
   void free_WireSyncReturnStruct(
     WireSyncReturnStruct val,
   ) {
@@ -174,7 +280,14 @@ class RustFfiWire implements FlutterRustBridgeWireBase {
       .asFunction<void Function(WireSyncReturnStruct)>();
 }
 
+class wire_uint_8_list extends ffi.Struct {
+  external ffi.Pointer<ffi.Uint8> ptr;
+
+  @ffi.Int32()
+  external int len;
+}
+
 typedef DartPostCObjectFnType = ffi.Pointer<
     ffi.NativeFunction<ffi.Bool Function(DartPort, ffi.Pointer<ffi.Void>)>>;
 typedef DartPort = ffi.Int64;
-typedef uintptr_t = ffi.UnsignedLongLong;
+typedef uintptr_t = ffi.UnsignedLong;
