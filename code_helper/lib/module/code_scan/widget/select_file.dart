@@ -29,8 +29,8 @@ class _SelectFile extends StatelessWidget {
     return Expanded(
       child: Container(
         margin: const EdgeInsets.symmetric(vertical: 20, horizontal: 20),
-        child: GetBuilder<CodeScanLogic>(builder: (logic) {
-          return Column(
+        child: Obx(
+          () => Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const Text(
@@ -41,10 +41,10 @@ class _SelectFile extends StatelessWidget {
                   color: Colors.blue,
                 ),
               ),
-              SelectionArea(child: Text(data.path)),
+              SelectionArea(child: Text(data.path.value)),
             ],
-          );
-        }),
+          ),
+        ),
       ),
     );
   }
@@ -66,7 +66,7 @@ class _SelectFile extends StatelessWidget {
                 borderRadius: BorderRadius.circular(20),
               ),
               alignment: Alignment.center,
-              child: const Text("拖拽文件到该区域 \n 或者点击选择文件"),
+              child: const Text("点击选择文件 或者 \n拖拽文件到该区域"),
             ),
           ),
         ),

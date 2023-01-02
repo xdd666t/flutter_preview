@@ -1,11 +1,20 @@
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+
 class CodeScanState {
   late int count;
 
-  late String path;
+  late RxString path;
+
+  /// 操作信息
+  late RxList<String> operateInfoList;
+  late ScrollController infoController;
 
   CodeScanState() {
     this
       ..count = 0
-      ..path = "";
+      ..operateInfoList = RxList()
+      ..infoController = ScrollController()
+      ..path = "".obs;
   }
 }

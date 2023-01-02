@@ -5,6 +5,7 @@ import 'package:desktop_drop/desktop_drop.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 
 import 'code_scan_state.dart';
 
@@ -25,12 +26,20 @@ class CodeScanLogic extends GetxController {
     if (path == null) {
       return;
     }
-    state.path = path;
-    update();
+    state.path.value = path;
 
     var sink = NativeFun.parseCode(path);
     sink.listen((event) {
-      debugPrint('---------${event.status} ----- ${event.msg}');
+      var curTime = DateFormat("h:mm:ss").format(DateTime.now());
+      state.operateInfoList.add('$curTime   ${event.status} ----- ${event.msg}');
+
+      WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+        state.infoController.animateTo(
+          state.infoController.position.maxScrollExtent,
+          duration: const Duration(milliseconds: 100),
+          curve: Curves.linear,
+        );
+      });
     });
   }
 }
