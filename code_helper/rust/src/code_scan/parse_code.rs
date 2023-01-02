@@ -1,7 +1,10 @@
-use std::io::sink;
+use std::fs::File;
+use std::io::{Read, sink};
 use std::thread::sleep;
 use std::time::Duration;
 use flutter_rust_bridge::StreamSink;
+
+fn main() {}
 
 pub struct ParseEntity {
     pub status: i32,
@@ -20,20 +23,12 @@ impl ParseCode {
     }
 
     pub fn start(&self, path: String) {
-        println!("{}------------", &path);
-
-        let mut ticks = 0;
-        let time = Duration::from_secs(1);
-        loop {
-            self.sink.add(ParseEntity {
-                status: ticks,
-                msg: "xdd666".to_string(),
-            });
-            sleep(time);
-            if ticks == 9 {
-                break;
-            }
-            ticks += 1;
-        }
+        let mut file = File::open(path).unwrap();
+        let mut contents = String::new();
+        file.read_to_string(&mut contents).unwrap();
+        self.sink.add(ParseEntity {
+            status: 1,
+            msg: contents,
+        });
     }
 }

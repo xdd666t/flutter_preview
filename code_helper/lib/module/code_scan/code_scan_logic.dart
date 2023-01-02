@@ -13,7 +13,16 @@ class CodeScanLogic extends GetxController {
   final CodeScanState state = CodeScanState();
 
   void onSelect() async {
+    // 选择文件夹
     final dir = await FilePicker.platform.getDirectoryPath();
+
+    // 选择文件
+    // FilePickerResult? result = await FilePicker.platform.pickFiles();
+    // var dir = result?.paths.last;
+    // if (dir == null) {
+    //   return;
+    // }
+
     _handleFile(dir);
   }
 
@@ -30,8 +39,12 @@ class CodeScanLogic extends GetxController {
 
     var sink = NativeFun.parseCode(path);
     sink.listen((event) {
+      if (event.status == 0) {
+        return;
+      }
+
       var curTime = DateFormat("h:mm:ss").format(DateTime.now());
-      state.operateInfoList.add('$curTime   ${event.status} ----- ${event.msg}');
+      state.operateInfoList.add('$curTime   ${event.msg}');
 
       WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
         state.infoController.animateTo(
