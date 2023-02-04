@@ -61,19 +61,19 @@ class _SideNavigation extends StatelessWidget {
                   height: 50,
                   child: Row(children: [
                     //激活条
-                    Container(
-                      height: double.infinity,
-                      width: 5,
-                      color: data.selectedIndex == index
-                          ? activeColor
-                          : Colors.transparent,
-                    ),
+                    // Container(
+                    //   height: double.infinity,
+                    //   width: 5,
+                    //   color: data.selectedIndex == index
+                    //       ? activeColor
+                    //       : Colors.transparent,
+                    // ),
 
                     //item
                     Expanded(
                       child: Container(
-                        width: double.maxFinite,
-                        padding: const EdgeInsets.only(left: 12),
+                        width: 80,
+                        margin: const EdgeInsets.only(left: 12),
                         alignment: Alignment.center,
                         color: data.selectedIndex == index
                             ? Colors.white
