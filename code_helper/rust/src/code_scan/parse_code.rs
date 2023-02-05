@@ -1,7 +1,8 @@
 use std::fs::File;
-use std::io::{Read, sink};
+use std::io::{sink, Read};
 use std::thread::sleep;
 use std::time::Duration;
+
 use flutter_rust_bridge::StreamSink;
 
 fn main() {}
@@ -17,9 +18,7 @@ pub struct ParseCode {
 
 impl ParseCode {
     pub fn new(sink: StreamSink<ParseEntity>) -> ParseCode {
-        ParseCode {
-            sink
-        }
+        ParseCode { sink }
     }
 
     pub fn start(&self, path: String) {

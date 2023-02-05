@@ -1,6 +1,6 @@
 import 'package:code_helper/module/code_scan/code_scan_view.dart';
 import 'package:code_helper/module/lab/lab_view.dart';
-import 'package:flutter/material.dart';
+import 'package:flutter/cupertino.dart';
 
 import '../../app/ui/keep_alive_page.dart';
 import '../../entity/common/btn_info.dart';
@@ -41,15 +41,15 @@ class MainState {
     sideItems = [
       BtnInfo(
         title: "代码扫描",
-        icon: const Icon(Icons.bubble_chart),
+        icon: const Icon(CupertinoIcons.app_badge),
       ),
       BtnInfo(
         title: "实验室",
-        icon: const Icon(Icons.opacity),
+        icon: const Icon(CupertinoIcons.arrow_3_trianglepath),
       ),
       BtnInfo(
         title: "设置",
-        icon: const Icon(Icons.settings),
+        icon: const Icon(CupertinoIcons.settings),
       ),
     ];
     //页面控制器
